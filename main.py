@@ -38,7 +38,10 @@ for i in listaWstepna:
         sciezka = i[helper:i.find("</td>",helper)]
         tc = sciezka[sciezka.rfind("/")+1:].replace("&gt;",">").replace("&lt;","<").replace('&quot;','"').replace('  ',' ')
         zestaw = sciezka[:sciezka.rfind("/")].replace("&gt;",">").replace("&lt;","<").replace('&quot;','"').replace('  ',' ')
-        dataPozytyw = i[i.find('<td class="ostatni_pozytywny" style="width: 190px;">')+len('<td class="ostatni_pozytywny" style="width: 190px;">'):i.find('<td class="ostatni_pozytywny" style="width: 190px;">')+len('<td class="ostatni_pozytywny" style="width: 190px;">')+10]
+        helper = '<td class="ostatni_pozytywny" style="width: 190px;">'
+        dataPozytyw = i[i.find(helper)+len(helper):i.find(helper)+len(helper)+10]
+        helper = '<td class="data_wykonu" style="width: 190px;">'
+        dataWykonu = i[i.find(helper)+len(helper):i.find(helper)+len(helper)+10]
         pozytyw = 0
         try:
             objDataIn = datetime.strptime(dateFrom,'%Y-%m-%d')
@@ -51,8 +54,8 @@ for i in listaWstepna:
             #brak wyniku pozytywnego w przeszłości
         
 
-        #zapisuję do pliku dane każdego tc w formacie ZESTAW;TC;CZY_POZYTYWNY
-        resultFile.write(zestaw+";"+tc+";"+str(pozytyw)+"\n")
+        #zapisuję do pliku dane każdego tc w formacie TECHNOLOGIA;ZESTAW;TC;CZY_POZYTYWNY
+        resultFile.write(technologia+";"+zestaw+";"+tc+";"+str(pozytyw)+"\n")
 
         #tworzę słownik String-Słownik wyników zbiorczych (Zestaw: Pozytywne:x, negatywne:y)
         if zestaw in dictWykony:
