@@ -1,7 +1,7 @@
 from datetime import datetime
 
 #otwieranie pliku
-file = open("a.txt")
+file = open("a.txt",encoding="utf8")
 fileContent = file.read()
 file.close()
 #ustalenie daty początkowej zliczania pozytywnych wykonań. Jeżeli data początkowa = data końcowa, to zlicza pozytywne z tego dnia
