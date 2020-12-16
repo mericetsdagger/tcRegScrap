@@ -60,9 +60,16 @@ for i in listaWstepna:
         #tworzę słownik String-Słownik wyników zbiorczych (Zestaw: Pozytywne:x, negatywne:y)
         if zestaw in dictWykony:
             if pozytyw == 0:
-                pass
+                currentOK = dictWykony.get(zestaw, {}).get("ok")
+                currentNOK = dictWykony.get(zestaw, {}).get("nok")
+                del dictWykony[zestaw]
+                dictWykony[zestaw] = {"ok":currentOK, "nok":currentNOK+1}
+                
             else:
-                pass
+                currentOK = dictWykony.get(zestaw, {}).get("ok")
+                currentNOK = dictWykony.get(zestaw, {}).get("nok")
+                del dictWykony[zestaw]
+                dictWykony[zestaw] = {"ok":currentOK+1, "nok":currentNOK}
         else:
             if pozytyw == 0:
                 dictWykony[zestaw] = {"ok":0,"nok":1}
@@ -73,6 +80,13 @@ for i in listaWstepna:
 
 
     counter += 1
+
+
+resultFile.write("\n\n\nWYNIKI SUMARYCZNE\n--------------------------------------------------------")
+
     
+for key, value in dictWykony.items():
+    resultFile.write(key+";\tOK:"+str(value.get("ok"))+"\tNOK:"+str(value.get("nok"))+"\n")
+
 
 resultFile.close()
